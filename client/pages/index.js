@@ -1,15 +1,20 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+//actions
+import * as threadActions from '../actions/thread';
+
 import Main from './app/main';
 
 function mapStateToProps(state){
 	return {
+		thread: state.thread
 	}
 }
 
 function mapDispatchToProps(dispatch){
 	return {
+		threadActions: bindActionCreators(threadActions, dispatch)
 	}
 }
 

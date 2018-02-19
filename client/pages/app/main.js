@@ -14,7 +14,9 @@ class Main extends Component {
 			<Layout className="layout">
 				<NavHeader />
 				<Content style={{ padding: '0 50px' }}>
-					<h1>Hello World</h1>
+					{
+						React.cloneElement(this.props.children, this.props)
+					}
 				</Content>
 				<NavFooter />
 			</Layout>

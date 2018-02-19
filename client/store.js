@@ -7,6 +7,7 @@ import { browserHistory } from 'react-router';
 import rootReducer from './reducers/index';
 
 const defaultState = {
+	thread: {}
 }
 
 const store = createStore(rootReducer, defaultState, compose(applyMiddleware(thunk)));
