@@ -46,8 +46,8 @@ class ThreadItem extends Component {
 
 	getThreadActions(){
 		return [
-			<span>
-				<Icon type="message" onClick={() => this.handleThreadActions('COMMENT')} />
+			<span onClick={() => this.handleThreadActions('COMMENT')}>
+				<Icon type="message" />
 				&nbsp;{this.comment.count}
 			</span>,
 			<Icon type="edit" onClick={() => this.handleThreadActions('EDIT')} />,
@@ -58,8 +58,10 @@ class ThreadItem extends Component {
 	handleThreadActions(type){
 		switch(type){
 			case 'COMMENT':
+				this.props.router.push('/detail/' + this.thread.key)
 				break;
 			case 'EDIT':
+				this.props.router.push('/update/' + this.thread.key)
 				break;
 			case 'DELETE':
 				break;
@@ -67,13 +69,13 @@ class ThreadItem extends Component {
 	}
 
 	render(){
-		let { title, desc, isDone, createdBy, createdAt } = this.thread;
+		let { title, desc, isDone, createdBy, createdAt, key } = this.thread;
 
 		return(
 			<Card 
 				title={
 					<div className="thread-item__header">
-						<a href="#">{title}</a>
+						<a href={`/detail/${key}`}>{title}</a>
 						<span className="header-status">
 							<Switch 
 								checked={!isDone} 
