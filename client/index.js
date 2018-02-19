@@ -42,9 +42,9 @@ const router = (
 )
 
 function onEnterHook(nextState, replace){
-	if(nextState.location.pathname === '/auth'){
-		replace('/');
-	}
+	// if(nextState.location.pathname === '/auth'){
+	// 	replace('/');
+	// }
 }
 
 render(router, document.getElementById('root'));
