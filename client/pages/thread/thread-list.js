@@ -9,7 +9,10 @@ import * as threadActions from '../../actions/thread';
 import ThreadItem from '../../components/thread/thread-item';
 
 //library
-import { Row, Col } from 'antd';
+import { Row, Col, Icon } from 'antd';
+
+//style
+import './thread-list.styl'
 
 //utils
 import { objectListToArray } from '../../utils/helpers/stringManipulation';
@@ -46,12 +49,17 @@ class ThreadList extends Component {
 			comment = this.comment ? objectListToArray(this.comment) : [];
 
 		return(
-			<section>
-				<header>
-					<h2>Pages: Thread List</h2>
+			<section className="thread-list">
+				<header className="thread-list__header">
+					<h2>
+						Pages: Thread List
+						<a href="/add">
+							<Icon type="plus-circle"/>
+						</a>
+					</h2>
 				</header>
-				<content>
-					<Row gutter={16}>
+				<content className="thread-list__content">
+					<Row gutter={16} className="content-container">
 					{
 						data.map((item, index) => {
 							return(
@@ -62,6 +70,7 @@ class ThreadList extends Component {
 										thread={item}
 										threadActions={this.props.threadActions}
 										comment={comment.filter(x => x.key === item.key)}
+										router={this.props.router}
 									/>
 								</Col>
 								)
@@ -69,7 +78,7 @@ class ThreadList extends Component {
 					}
 					</Row>
 				</content>
-				<footer></footer>
+				<footer className="thread-list__footer"></footer>
 			</section>
 			);
 	}
