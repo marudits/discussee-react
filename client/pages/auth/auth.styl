@@ -1,0 +1,22 @@
+@import '../../styles/_variable.styl'
+
+.auth
+  max-width 300px
+  margin: 0 auto;
+  &-header
+    text-align center
+  &-content
+    &__form
+      margin-bottom 24px
+      .ant-form-item
+        margin-bottom 6px
+      .message-error
+        color $red-4
+        margin-top 6px
+  &-footer
+    border-top 1px solid $grey-4
+    padding-top 12px
+    &__mode
+      color $blue-4
+      cursor pointer
+      text-decoration underline

@@ -13,7 +13,7 @@ class Main extends Component {
 		return(
 			<Layout className="layout">
 				<NavHeader />
-				<Content style={{ padding: '0 50px' }}>
+				<Content style={{ padding: '0 50px', margin: '2em 0' }}>
 					{
 						React.cloneElement(this.props.children, this.props)
 					}
