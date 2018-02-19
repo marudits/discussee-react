@@ -1,0 +1,52 @@
+@import '../../styles/_variable.styl'
+
+.thread
+  &-item
+    .ant-card
+      &-head
+        padding 0px 12px
+      &-body
+        padding 12px
+    margin-bottom 1em
+    border-radius 0.3em
+    &__header
+      a
+        color $blue-primary
+        text-decoration underline
+        cursor pointer
+        font-size 1.1em
+        display block
+      .header
+        &-status
+          .ant-switch
+            background-color $red-6
+
+            &-checked
+              background-color $green-6
+
+          &__text
+            margin-left 6px
+            font-size 0.9em
+            font-weight 300
+            &.text
+              &-red
+                color $red-4
+              &-green
+                color $green-4
+    content
+      height 200px
+    &__desc
+      text-align justify
+      text-indent 1.8em
+      height 125px
+      overflow hidden
+    &__meta
+      font-size 0.8em
+      border-top 1px dashed $gray
+      padding-top 9px
+      margin-bottom 0px
+      .meta
+        &-user
+          font-weight bold
+        &-date
+          font-style italic
