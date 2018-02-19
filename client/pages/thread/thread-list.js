@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
-import { render } from 'react-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 //actions
 import * as threadActions from '../../actions/thread';
+
+//components
+import ThreadItem from '../../components/thread/thread-item';
+
+//library
+import { Row, Col } from 'antd';
 
 //utils
 import { objectListToArray } from '../../utils/helpers/stringManipulation';
@@ -14,38 +19,55 @@ class ThreadList extends Component {
 		super(props);
 
 		this.list = null;
+		this.comment = null
 	}
 
 	componentWillMount(){
+		//get thread list
 		this.props.threadActions.getThreadList();
 		this.list = this.props.thread.list;
+
+		//get comment
+		this.props.commentActions.getCommentList();
 	}
 
 	componentWillReceiveProps(nextProps){
 		if(this.list !== nextProps.thread.list){
 			this.list = nextProps.thread.list;
-			console.log(this.list);
+		}
+
+		if(this.comment !== nextProps.comment.list){
+			this.comment = nextProps.comment.list;
 		}
 	}
 
 	render(){
-		const data = this.list ? objectListToArray(this.list) : []
+		const data = this.list ? objectListToArray(this.list) : [],
+			comment = this.comment ? objectListToArray(this.comment) : [];
+
 		return(
 			<section>
 				<header>
-					<h3>Pages: Thread List</h3>
+					<h2>Pages: Thread List</h2>
 				</header>
 				<content>
+					<Row gutter={16}>
 					{
 						data.map((item, index) => {
 							return(
-								<div key={index}>
-									<h4>{ item.title }</h4>
-									<p>{ item.desc }</p>
-								</div>
+								<Col 
+									lg={{span: 8}} md={{span: 12}} s={{span: 24}} xs={{span: 24}}
+									key={index}>
+									<ThreadItem 
+										thread={item}
+										threadActions={this.props.threadActions}
+										comment={comment.filter(x => x.key === item.key)}
+									/>
+								</Col>
 								)
 						})
 					}
+					</Row>
 				</content>
 				<footer></footer>
 			</section>
@@ -55,7 +77,8 @@ class ThreadList extends Component {
 
 function mapStateToProps(state) {
 	return {
-		thread: state.thread
+		thread: state.thread,
+		comment: state.comment
 	}
 }
 
