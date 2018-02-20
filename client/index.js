@@ -23,6 +23,9 @@ import Auth from './pages/auth/auth';
 //store
 import store, { history } from './store'
 
+//utils
+import { getCurrentUser } from './utils/api/firebase';
+
 firebase.initializeApp(CONFIG.LIBRARY.FIREBASE.CONFIG);
 
 const router = (
@@ -42,9 +45,35 @@ const router = (
 )
 
 function onEnterHook(nextState, replace){
-	// if(nextState.location.pathname === '/auth'){
+	let currentUser = firebase.auth().currentUser;
+	let{ pathname } = nextState.location,
+		requiresAuth = ['/auth'].indexOf(pathname) === -1;
+
+	// console.log('onEnterHook: currentUser: ', currentUser, ' | pathname: ', pathname, ' | requiresAuth: ', requiresAuth);
+	
+	// if(requiresAuth && !currentUser){
+	// 	replace('/auth')
+	// } else if(!requiresAuth && currentUser){
 	// 	replace('/');
+	// } else {
+	// 	replace();
 	// }
 }
+
+// history.listenBefore((location, done) => {
+// 	let currentUser = firebase.auth().currentUser,
+// 		{ pathname } = location,
+// 		requiresAuth = ['/auth'].indexOf(pathname) === -1;
+	
+// 	// console.log('history.listenBefore: currentUser: ', currentUser, ' | pathname: ', pathname, ' | requiresAuth: ', requiresAuth);
+
+// 	if(requiresAuth && !currentUser){
+// 		history.go('/auth');
+// 	} else if(!requiresAuth && currentUser){
+// 		history.go('/')
+// 	} else {
+// 		done();	
+// 	}
+// })
 
 render(router, document.getElementById('root'));

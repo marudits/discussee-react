@@ -3,7 +3,7 @@
 .header {
 	background-color: $blue;
 
-	.logo {
+	&-logo {
 		width: 120px;
     height: 31px;
     background: rgba(255,255,255,.2);  
@@ -13,6 +13,31 @@
 
   h3 {
     color: #fff;
+    display: inline;
+    width: 80%;
+  }
+
+  &-user {
+    float: right;
+
+    .ant-avatar {
+      background: white;
+      color: $blue-4
+    }
+
+    .ant-badge-dot {
+      background: $green-6
+    }
+
+    &__username {
+      color: white;
+      margin-left: 12px;
+    }
+
+    &__caret {
+      color: white;
+      margin-left: 6px;
+    }
   }
 
 }
@@ -20,6 +45,9 @@
 .footer {
   background-color: $blue;
   padding: 18px
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
 	
 	p {
 		text-align: center;
@@ -27,4 +55,8 @@
     color: #fff
     margin-bottom: 0px
 	}
+}
+
+.ant-dropdown {
+  top: 65px !important;
 }

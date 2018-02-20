@@ -75,7 +75,7 @@ class ThreadItem extends Component {
 			<Card 
 				title={
 					<div className="thread-item__header">
-						<a href={`/detail/${key}`}>{title}</a>
+						<a href="#" onClick={() => this.handleThreadActions('COMMENT')}>{title}</a>
 						<span className="header-status">
 							<Switch 
 								checked={!isDone} 
