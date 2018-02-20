@@ -34,6 +34,7 @@ class Auth extends Component {
 		let { email, password } = this.state.form;
 		signIn(email, password)
 			.then(res => {
+				this.props.userActions.setUserData(res);
 				this.props.router.push('/');
 			})
 			.catch(err => {

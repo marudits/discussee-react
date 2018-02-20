@@ -7,6 +7,7 @@ import { browserHistory } from 'react-router';
 import rootReducer from './reducers/index';
 
 const defaultState = {
+	user: {},
 	thread: {},
 	comment: {}
 }
