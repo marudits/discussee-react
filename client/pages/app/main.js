@@ -9,6 +9,10 @@ import NavFooter from '../../components/navigation/footer';
 const { Content } = Layout;
 
 class Main extends Component {
+	constructor(props){
+		super(props);
+	}
+
 	render(){
 		return(
 			<Layout className="layout">
