@@ -10,16 +10,14 @@ export default function user(state = defaultState, action){
 	switch(type){
 		case 'USER_SET_DATA':
 			newState.data = {
-				email: data.data.email,
-				username: getUsernameFromEmail(data.data.email),
-				lastLoginAt: new Date(data.data.metadata.lastSignInTime),
-				registerAt: new Date(data.data.metadata.creationTime)
+				email: data.email,
+				username: getUsernameFromEmail(data.email),
+				lastLoginAt: new Date(data.metadata.lastSignInTime),
+				registerAt: new Date(data.metadata.creationTime)
 			};
 			return newState;
 		case 'USER_CLEAR_DATA':
-			console.log('USER_CLEAR_DATA: ')
 			newState.data = null;
-			console.log('newState: ', newState);
 			return newState;
 		default:
 			return newState;

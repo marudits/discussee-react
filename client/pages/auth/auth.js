@@ -34,10 +34,12 @@ class Auth extends Component {
 		let { email, password } = this.state.form;
 		signIn(email, password)
 			.then(res => {
-				this.props.userActions.setUserData(res);
+				console.log('signIn: ', res);
+				this.props.userActions.setUserData(res.data);
 				this.props.router.push('/');
 			})
 			.catch(err => {
+				console.log(err);
 				let newValidation = this.state.validation;
 				newValidation.submit.error = true;
 				newValidation.submit.message = err.data.message;

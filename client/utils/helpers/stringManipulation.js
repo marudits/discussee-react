@@ -35,5 +35,5 @@ export function calculateDiffTime(timestamp = Date.now()){
 }
 
 export function getUsernameFromEmail(email){
-	return email.slice(0, email.indexOf('@'))
+	return email ? email.slice(0, email.indexOf('@')) : null
 }

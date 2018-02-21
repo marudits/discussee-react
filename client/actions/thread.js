@@ -1,7 +1,7 @@
 //library
 import firebase from 'firebase';
 
-//utisl
+//utils
 import { getUsernameFromEmail } from '../utils/helpers/stringManipulation'
 
 export function getThreadList(){

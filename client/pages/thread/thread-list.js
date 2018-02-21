@@ -53,7 +53,7 @@ class ThreadList extends Component {
 				<header className="thread-list__header">
 					<h2>
 						Pages: Thread List
-						<a href="/add">
+						<a href="#" onClick={() => (this.props.router.push('/add'))}>
 							<Icon type="plus-circle"/>
 						</a>
 					</h2>
