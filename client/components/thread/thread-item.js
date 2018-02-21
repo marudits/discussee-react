@@ -7,7 +7,7 @@ import { Button, Card, Icon, Switch } from 'antd';
 import './thread-item.styl'
 
 //utils
-import { getComments } from '../../utils/api/firebase';
+import { getComments, removeThread } from '../../utils/api/firebase';
 import { calculateDiffTime } from '../../utils/helpers/stringManipulation';
 
 class ThreadItem extends Component {
@@ -64,6 +64,11 @@ class ThreadItem extends Component {
 				this.props.router.push('/update/' + this.thread.key)
 				break;
 			case 'DELETE':
+				let { key, title } = this.thread;
+				removeThread(key)
+					.then(() => {
+						window.alert('Success delete thread: ' + title);
+					})
 				break;
 		}
 	}

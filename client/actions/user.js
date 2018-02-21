@@ -1,3 +1,6 @@
+//library
+import { getCurrentUser } from '../utils/api/firebase';
+
 export function setUserData(data){
 	return (dispatch, getState) => {
 		dispatch({
