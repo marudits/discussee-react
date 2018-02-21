@@ -6,8 +6,6 @@ import { getUsernameFromEmail } from '../helpers/stringManipulation'
 
 export function addComment(id, text){
 	const CURRENT_USER = getUsernameFromEmail(firebase.auth().currentUser.email);
-	
-	console.log('CURRENT_USER: ', CURRENT_USER);
 
 	let dbComments = firebase.database().ref('comments').child(id)
 	dbComments.push({
@@ -47,6 +45,29 @@ export function isTypingComment(id, text){
 	});
 }
 
+export function addThread(title, desc){
+	return new Promise((resolve, reject) => {
+		const CURRENT_USER = getUsernameFromEmail(firebase.auth().currentUser.email)
+
+		console.log('addThread: ', title, '| CURRENT_USER: ', CURRENT_USER);
+
+		let dbTodos = firebase.database().ref('todos')
+		dbTodos.push({
+			title: title,
+			desc: desc,
+			isEditing: false,
+			isDone: false,
+			createdAt: Date.now(),
+			createdBy: CURRENT_USER,
+			updatedAt: Date.now(),
+			updatedBy: CURRENT_USER
+		});
+
+		resolve()
+	})
+	
+}
+
 export function getThread(threadId = null){
 	return new Promise((resolve, reject) => {
 		let dbThread = firebase.database().ref(`todos${threadId ? '/' + threadId : ''}`);
@@ -58,6 +79,30 @@ export function getThread(threadId = null){
 				resolve(res.val())
 			}
 		});		
+	})
+}
+
+export function removeThread(threadId){
+	return new Promise((resolve, reject) => {
+		let dbTodos = firebase.database().ref('todos').child(threadId)
+		dbTodos.remove();
+
+		let dbComments = firebase.database().ref('comments').child(threadId)
+		dbComments.remove();
+
+		resolve()
+	})	
+}
+
+export function updateThread(threadId, item){
+	return new Promise((resolve, reject) => {
+		const CURRENT_USER = getUsernameFromEmail(firebase.auth().currentUser.email);
+
+		let dbTodos = firebase.database().ref('todos').child(threadId)
+		dbTodos.update(Object.assign({}, item, {updatedBy: CURRENT_USER}, {updatedAt: Date.now()}));
+
+		resolve()
+
 	})
 }
 

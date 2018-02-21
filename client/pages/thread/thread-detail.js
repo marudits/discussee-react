@@ -71,7 +71,7 @@ class ThreadDetail extends Component {
 
 	formatIsTypingInfo(){
 		const THREAD_ID = this.props.params.id;
-		if(this.props.comment.isTyping && this.props.comment.isTyping[THREAD_ID].length > 0){
+		if(this.props.comment.isTyping && this.props.comment.isTyping[THREAD_ID] && this.props.comment.isTyping[THREAD_ID].length > 0){
 			let commentList = this.props.comment.isTyping[THREAD_ID];
 			let isCurrentUserTyping = commentList.filter(x => (x.key === getCurrentUsername())).length === 1,
 				otherUserTyping = commentList.filter(x => (x.key !== getCurrentUsername())),
@@ -130,7 +130,6 @@ class ThreadDetail extends Component {
 	}
 
 	stoppedTyping(id){
-		console.log('stoppedTyping');
 		if(this.state.isTypingTimer){
 			this.setState({isTypingTimer: null})
 			isFinishedTypingComment(id);
@@ -171,6 +170,7 @@ class ThreadDetail extends Component {
 									itemLayout="horizontal"
 									dataSource={objectListToArray(this.state.comment)}
 									renderItem={ item => (
+
 										<List.Item className={`comment-item`} id={`comment-item-${item.key}`}>
 											<List.Item.Meta
 												avatar={<Icon type="user" className="comment-item__icon"/>}

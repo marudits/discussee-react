@@ -12,7 +12,6 @@ function comment(state = defaultState, action){
 			newState.detail = data;
 			return newState;
 		case 'COMMENT_GET_ISTYPING':
-			console.log('type: ', type, '| data: ', data.list)
 			newState.isTyping = Object.assign({}, newState.isTyping);
 			newState.isTyping[data.threadId] = data.list;
 			return newState;
