@@ -1,4 +1,21 @@
+//library
 import firebase from 'firebase';
+
+//utils
+import { getUsernameFromEmail } from '../helpers/stringManipulation'
+
+export function addComment(id, text){
+	const CURRENT_USER = getUsernameFromEmail(firebase.auth().currentUser.email);
+	
+	console.log('CURRENT_USER: ', CURRENT_USER);
+
+	let dbComments = firebase.database().ref('comments').child(id)
+	dbComments.push({
+		name: CURRENT_USER,
+		text: text,
+		timestamp: Date.now()
+	});
+}
 
 export function getComments(threadId = null){
 	return new Promise((resolve, reject) => {
@@ -12,6 +29,22 @@ export function getComments(threadId = null){
 			}
 		});		
 	})
+}
+
+export function isFinishedTypingComment(id){
+	const CURRENT_USER = getCurrentUsername();
+
+	let dbIsTyping = firebase.database().ref('isTyping').child(id).child(CURRENT_USER);
+	dbIsTyping.remove();
+}
+
+export function isTypingComment(id, text){
+	const CURRENT_USER = getCurrentUsername();
+
+	let dbIsTyping = firebase.database().ref('isTyping').child(id).child(CURRENT_USER);
+	dbIsTyping.set({
+		text: text
+	});
 }
 
 export function getThread(threadId = null){
@@ -53,4 +86,8 @@ export function getCurrentUser(){
 	return new Promise((resolve, reject) => {
 		resolve(firebase.auth().currentUser)
 	})
+}
+
+export function getCurrentUsername(){
+	return getUsernameFromEmail(firebase.auth().currentUser.email)
 }

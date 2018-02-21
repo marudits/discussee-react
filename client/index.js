@@ -4,6 +4,9 @@ import { render } from 'react-dom';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 
+//actions
+import { setUserData } from './actions/user';
+
 //assets
 import { CONFIG } from './assets/config';
 
@@ -48,8 +51,9 @@ function onEnterHook(nextState, replace){
 	let currentUser = firebase.auth().currentUser;
 	let{ pathname } = nextState.location,
 		requiresAuth = ['/auth'].indexOf(pathname) === -1;
-
-	// console.log('onEnterHook: currentUser: ', currentUser, ' | pathname: ', pathname, ' | requiresAuth: ', requiresAuth);
+	
+	//console.log('onEnterHook: currentUser: ', currentUser, ' | pathname: ', pathname, ' | requiresAuth: ', requiresAuth);
+	//setUserData(currentUser);
 	
 	// if(requiresAuth && !currentUser){
 	// 	replace('/auth')
