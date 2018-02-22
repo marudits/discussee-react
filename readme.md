@@ -1,5 +1,5 @@
 # Discussee - React
-https://marudits.github.io/discussee-react/#/
+https://discussee-react.herokuapp.com/
 
 ### Desc:
 
