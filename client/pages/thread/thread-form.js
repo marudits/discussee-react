@@ -9,6 +9,7 @@ import './thread-form.styl';
 
 //utils
 import { addThread, getThread, updateThread } from '../../utils/api/firebase';
+import { toCamelCase } from '../../utils/helpers/stringManipulation';
 
 class ThreadForm extends Component {
 	constructor(props){
@@ -66,7 +67,7 @@ class ThreadForm extends Component {
 		return(
 			<section className="thread-form">
 				<header>
-					<h2>Pages: Thread Form {this.state.mode}</h2>
+					<h2>{toCamelCase(this.state.mode)} Thread</h2>
 				</header>
 				<content>
 					<Form onSubmit={(e) => this.handleSubmit(e)} layout="horizontal" className="form">
@@ -76,17 +77,9 @@ class ThreadForm extends Component {
 						<Form.Item label="Description" className="form-item">
 							<TextArea rows={6} onChange={(e) => this.handleChange(e, 'desc')} value={this.state.form.desc}/>
 						</Form.Item>
-						{
-							this.state.mode === 'ADD' ?
-								<Button type="primary" htmltype="submit" onClick={(e) => this.handleSubmit(e)}>
-									Create
-								</Button>
-								:
-								<Button type="primary" htmltype="submit" onClick={(e) => this.handleSubmit(e)}>
-									Update
-								</Button>
-						}
-						
+						<Button type="primary" htmltype="submit" onClick={(e) => this.handleSubmit(e)} className={`btn-${this.state.mode.toLowerCase()}`}>
+							{this.state.mode === 'ADD' ? 'Create' : 'Update'}
+						</Button>
 					</Form>
 				</content>
 				<footer></footer>
