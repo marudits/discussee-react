@@ -10,5 +10,12 @@ export const CONFIG = {
 				messagingSenderId: "998029269939"
 			}
 		}
+	},
+	VALIDATION: {
+		THREAD: {
+			DESC: {
+				MIN_LENGTH: 200
+			}
+		}
 	}
 }
