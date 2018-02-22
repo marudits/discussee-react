@@ -1,8 +1,23 @@
+@import '../../styles/_variable.styl'
+
 .thread-form
   content
     .form
+      max-width 600px
       &-item
         margin-bottom 6px
         .ant-form-item
           &-label
             line-height 30px
+        .message
+          &-error
+            font-size 0.9em
+            line-height 2em
+            color red
+      .btn
+        &-add
+          background-color $green-6
+          border-color $green-7
+        &-update
+          background-color $yellow-6
+          border-color $yellow-7

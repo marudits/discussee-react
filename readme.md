@@ -1,13 +1,17 @@
-# React - AntDesign Template
+# Discussee - React
+https://marudits.github.io/discussee-react/#/
 
-A simple template using React + Ant Design.
+### Desc:
 
-## Running
+> A simple application for discussing a **Topic**. User can create a **Thread**, then discuss (by giving **Comments**) in related **Thread**. Thread can be set for *Opened* or *Closed* for turn on/off commenting. To access this feature, user should be authenticated by *Sign Up* and/ or *Sign In*.
 
-First `npm install` to grab all the necessary dependencies. 
+### Tech Stack
+	- React.JS
+	- AntDesign
+	- Firebase (Authentication and Database)
 
-Then run `npm start` and open <localhost:777> in your browser.
+### Disclaimer
+This app is simple project for POC to implement React.JS in an application.
 
-## Production Build
-
-Run `npm build` to create a distro folder and a bundle.js file.
+### Copyright
+By marudits. Feel free to contribute or contact at email marudits@gmail.com

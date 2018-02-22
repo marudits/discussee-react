@@ -6,6 +6,9 @@ import { Layout } from 'antd';
 import NavHeader from '../../components/navigation/header';
 import NavFooter from '../../components/navigation/footer';
 
+//utils
+import { getCurrentUsername, getCurrentUser } from '../../utils/api/firebase'
+
 const { Content } = Layout;
 
 class Main extends Component {
@@ -13,6 +16,22 @@ class Main extends Component {
 		super(props);
 	}
 
+	componentWillReceiveProps(){
+		const CURRENT_USER = getCurrentUsername();
+		if(!this.props.user.data){
+				getCurrentUser()
+				.then(res => {
+					if(res){
+						this.props.userActions.setUserData(res)
+					}
+					
+				})
+		}
+
+		if(this.props.location.pathname !== '/auth' && !CURRENT_USER){
+			this.props.router.push('/auth')
+		}
+	}
 	render(){
 		return(
 			<Layout className="layout">

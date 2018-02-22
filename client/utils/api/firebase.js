@@ -134,5 +134,5 @@ export function getCurrentUser(){
 }
 
 export function getCurrentUsername(){
-	return getUsernameFromEmail(firebase.auth().currentUser.email)
+	return firebase.auth().currentUser ? getUsernameFromEmail(firebase.auth().currentUser.email) : null
 }

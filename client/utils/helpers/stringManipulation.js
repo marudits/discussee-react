@@ -37,3 +37,11 @@ export function calculateDiffTime(timestamp = Date.now()){
 export function getUsernameFromEmail(email){
 	return email ? email.slice(0, email.indexOf('@')) : null
 }
+
+export function toCamelCase(text){
+	let camelCase = [];
+	text.split(" ").forEach((word) => {
+		camelCase.push(word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+	})
+	return camelCase.join(" ")
+}

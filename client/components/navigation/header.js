@@ -33,8 +33,10 @@ class NavHeader extends Component {
 		return(
 			<Header className="header">
 				<Link to="/">
-					<div className="header-logo" />
-					<h3>React - AntDesign</h3>
+					<div className="header-logo">
+						<Icon type="message" />
+					</div>
+					<h1>Discussee</h1>
 					{
 						(() => {
 							if(this.props.user.data){
