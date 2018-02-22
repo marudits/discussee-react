@@ -68,6 +68,7 @@ class ThreadDetail extends Component {
 
 	addComment(){
 		addComment(this.props.params.id, this.state.form.text);
+		this.props.commentActions.getCommentList(this.props.params.id);
 		this.resetForm();
 		this.scrollComments();
 	}
