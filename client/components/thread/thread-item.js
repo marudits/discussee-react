@@ -68,6 +68,7 @@ class ThreadItem extends Component {
 				removeThread(key)
 					.then(() => {
 						window.alert('Success delete thread: ' + title);
+						this.props.threadActions.getThreadList()
 					})
 				break;
 		}
