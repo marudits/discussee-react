@@ -34,15 +34,13 @@ class Auth extends Component {
 		let { email, password } = this.state.form;
 		signIn(email, password)
 			.then(res => {
-				console.log('signIn: ', res);
 				this.props.userActions.setUserData(res.data);
 				this.props.router.push('/');
 			})
 			.catch(err => {
-				console.log(err);
 				let newValidation = this.state.validation;
 				newValidation.submit.error = true;
-				newValidation.submit.message = err.data.message;
+				newValidation.submit.message = err.message || err.data.message;
 				this.setState({validation: newValidation})
 			})
 	}
@@ -59,7 +57,7 @@ class Auth extends Component {
 			newValidation[key].error = null
 			newValidation[key].message = null
 		}
-		this.setState({validation: newValidation})
+		this.setState({validation: newValidation});
 	}
 
 	toggleMode(){
@@ -90,6 +88,7 @@ class Auth extends Component {
 								type="email"
 								value={email}
 								onChange={(e) => this.handleChange(e, 'email')}
+								required
 								/>
 						</Form.Item>
 						<Form.Item>
@@ -99,6 +98,7 @@ class Auth extends Component {
 								type="password"
 								value={password}
 								onChange={(e) => this.handleChange(e, 'password')}
+								required
 								/>
 						</Form.Item>
 						<Button type="primary" htmlType="submit">Sign In</Button>

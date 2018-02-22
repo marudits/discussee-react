@@ -48,11 +48,12 @@ const router = (
 )
 
 function onEnterHook(nextState, replace){
-	let currentUser = firebase.auth().currentUser;
-	let{ pathname } = nextState.location,
-		requiresAuth = ['/auth'].indexOf(pathname) === -1;
+	// let currentUser = firebase.auth().currentUser;
+	// let{ pathname } = nextState.location,
+	// 	requiresAuth = ['/auth'].indexOf(pathname) === -1;
 	
-	//console.log('onEnterHook: currentUser: ', currentUser, ' | pathname: ', pathname, ' | requiresAuth: ', requiresAuth);
+	// console.log('onEnterHook: currentUser: ', currentUser, ' | pathname: ', pathname, ' | requiresAuth: ', requiresAuth);
+	
 	//setUserData(currentUser);
 	
 	// if(requiresAuth && !currentUser){
@@ -64,20 +65,20 @@ function onEnterHook(nextState, replace){
 	// }
 }
 
-// history.listenBefore((location, done) => {
-// 	let currentUser = firebase.auth().currentUser,
-// 		{ pathname } = location,
-// 		requiresAuth = ['/auth'].indexOf(pathname) === -1;
+history.listenBefore((location, done) => {
+	let currentUser = firebase.auth().currentUser,
+		{ pathname } = location,
+		requiresAuth = ['/auth'].indexOf(pathname) === -1;
 	
-// 	// console.log('history.listenBefore: currentUser: ', currentUser, ' | pathname: ', pathname, ' | requiresAuth: ', requiresAuth);
+	//console.log('history.listenBefore: currentUser: ', currentUser, ' | pathname: ', pathname, ' | requiresAuth: ', requiresAuth);
 
-// 	if(requiresAuth && !currentUser){
-// 		history.go('/auth');
-// 	} else if(!requiresAuth && currentUser){
-// 		history.go('/')
-// 	} else {
-// 		done();	
-// 	}
-// })
+	if(requiresAuth && !currentUser){
+		history.go('/auth');
+	} else if(!requiresAuth && currentUser){
+		history.go('/')
+	} else {
+		done();	
+	}
+})
 
 render(router, document.getElementById('root'));
