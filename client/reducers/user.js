@@ -9,6 +9,7 @@ export default function user(state = defaultState, action){
 
 	switch(type){
 		case 'USER_SET_DATA':
+			console.log('USER_SET_DATA: ', data.email)
 			newState.data = {
 				email: data.email,
 				username: getUsernameFromEmail(data.email),
