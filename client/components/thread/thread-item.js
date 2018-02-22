@@ -68,8 +68,13 @@ class ThreadItem extends Component {
 	}
 
 	isOwnThread(){
-		const CURRENT_USER = this.props.user.username;
-		return CURRENT_USER === this.thread.createdBy
+		if(this.props.user){
+			const CURRENT_USER = this.props.user.username;
+			return CURRENT_USER === this.thread.createdBy
+		} else {
+			return false
+		}
+		
 	}
 
 	handleThreadActions(type){
