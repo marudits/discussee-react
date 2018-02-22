@@ -36,6 +36,31 @@
           padding 3px 0px
           border-bottom 0
           margin-bottom 6px
+          &__own
+            float right
+            width 100%
+            .ant-list-item-meta
+              margin-left 40% !important
+              width 100%
+              text-align right
+              .desc-text
+                background-color $blue-4
+
+          &__other
+            float left
+            width 100%
+            .ant-list-item-meta
+              margin-right 40% !important
+              width 100%
+              text-align left
+              h4
+                a
+                  color $green-7
+              .desc-text
+                background-color $green-6
+              &-avatar
+                margin-right 0
+
           h4
             margin-bottom 0px
           &__icon
@@ -53,7 +78,6 @@
               &-text
                 font-size 0.9em
                 margin-bottom 0
-                background-color $green-6
                 display inline-block
                 color white
                 padding 3px 6px

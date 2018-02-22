@@ -36,7 +36,8 @@ class ThreadDetail extends Component {
 				text: null,
 				account: null
 			},
-			isTypingTimer: null
+			isTypingTimer: null,
+			currentUser: null
 		}
 	}
 
@@ -53,7 +54,6 @@ class ThreadDetail extends Component {
 
 		//get isTyping
 		this.props.commentActions.getIsTyping(this.props.params.id);
-
 	}
 
 	componentWillReceiveProps(nextProps){
@@ -61,6 +61,9 @@ class ThreadDetail extends Component {
 			this.setState({comment: objectListToArray(nextProps.comment.list)});
 			this.scrollComments()
 		}
+
+		//get username
+		this.setState({currentUser: getCurrentUsername()})
 	}
 
 	addComment(){
@@ -171,22 +174,42 @@ class ThreadDetail extends Component {
 									dataSource={objectListToArray(this.state.comment)}
 									renderItem={ item => (
 
-										<List.Item className={`comment-item`} id={`comment-item-${item.key}`}>
-											<List.Item.Meta
-												avatar={<Icon type="user" className="comment-item__icon"/>}
-												title={
-													<div>
-														<a href="#" className="comment-item__title">{item.name}</a>
-														<span className="comment-item__date">{calculateDiffTime(item.timestamp)}</span>
-													</div>
-												}
-												description={
-													<div className="comment-item__desc">
-														<p className="desc-text">{item.text}</p>
-													</div>
-												}
-									        />
-									    </List.Item>
+										this.state.currentUser === item.name ?
+											<div className="comment-item">
+											<List.Item className={`comment-item__own`} id={`comment-item-${item.key}`}>
+												<List.Item.Meta
+													title={
+														<div>
+															<span className="comment-item__date">{calculateDiffTime(item.timestamp)}</span>
+														</div>
+													}
+													description={
+														<div className="comment-item__desc">
+															<p className="desc-text">{item.text}</p>
+														</div>
+													}
+										        />
+										    </List.Item>
+										    </div>
+										    :
+										    <div className="comment-item">
+										    <List.Item className={`comment-item__other`} id={`comment-item-${item.key}`}>
+												<List.Item.Meta
+													avatar={<Icon type="user" className="comment-item__icon"/>}
+													title={
+														<div>
+															<a href="#" className="comment-item__title">{item.name}</a>
+															<span className="comment-item__date">{calculateDiffTime(item.timestamp)}</span>
+														</div>
+													}
+													description={
+														<div className="comment-item__desc">
+															<p className="desc-text">{item.text}</p>
+														</div>
+													}
+										        />
+										    </List.Item>
+										    </div>
 									)}
 								/>
 
