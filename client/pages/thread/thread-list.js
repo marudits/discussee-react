@@ -79,6 +79,7 @@ class ThreadList extends Component {
 									lg={{span: 8}} md={{span: 12}} s={{span: 24}} xs={{span: 24}}
 									key={index}>
 									<ThreadItem 
+										user={this.props.user.data}
 										thread={item}
 										threadActions={this.props.threadActions}
 										comment={comment.filter(x => x.key === item.key)}
