@@ -146,7 +146,7 @@ class ThreadDetail extends Component {
 		return(
 			<section className="thread-detail">
 				<header className="thread-detail__header">
-					<h2>Pages: Thread Detail</h2>
+					<h2>Thread Detail</h2>
 				</header>
 				<content className="thread-detail__content">
 					<header>
