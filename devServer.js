@@ -17,11 +17,11 @@ app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.listen(777, '0.0.0.0', function(err) {
+app.listen(process.env.PORT, function(err) {
   if (err) {
     console.log(err);
     return;
   }
 
-  console.log('Listening at http://0.0.0.0:777');
+  console.log('Listening at http://localhost:' + (process.env.PORT || 777));
 });

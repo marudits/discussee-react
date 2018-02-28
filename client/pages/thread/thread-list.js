@@ -9,7 +9,7 @@ import * as threadActions from '../../actions/thread';
 import ThreadItem from '../../components/thread/thread-item';
 
 //library
-import { Row, Col, Icon } from 'antd';
+import { Tag, Row, Col, Icon } from 'antd';
 
 //style
 import './thread-list.styl'
@@ -45,8 +45,14 @@ class ThreadList extends Component {
 	}
 
 	render(){
-		const data = this.list ? objectListToArray(this.list) : [],
+		let data = this.list ? objectListToArray(this.list) : [],
 			comment = this.comment ? objectListToArray(this.comment) : [];
+
+		let countThread = {
+			all: data.length,
+			opened: data.filter(x => !x.isDone).length,
+			closed: data.filter(x => x.isDone).length
+		}
 
 		return(
 			<section className="thread-list">
@@ -56,7 +62,13 @@ class ThreadList extends Component {
 						<a href="#" onClick={() => (this.props.router.push('/add'))}>
 							<Icon type="plus-circle"/>
 						</a>
+						<div>
+							<Tag>{ countThread.all }&nbsp;All</Tag>
+							<Tag color="green">{ countThread.opened }&nbsp;Opened</Tag>
+							<Tag color="red">{ countThread.closed }&nbsp;Closed</Tag>
+						</div>
 					</h2>
+					
 				</header>
 				<content className="thread-list__content">
 					<Row gutter={16} className="content-container">
@@ -67,6 +79,7 @@ class ThreadList extends Component {
 									lg={{span: 8}} md={{span: 12}} s={{span: 24}} xs={{span: 24}}
 									key={index}>
 									<ThreadItem 
+										user={this.props.user.data}
 										thread={item}
 										threadActions={this.props.threadActions}
 										comment={comment.filter(x => x.key === item.key)}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 //library
-import { Form, Button, Icon, Input, List, Avatar } from 'antd';
+import { Form, Button, Divider, Icon, Input, List, Avatar } from 'antd';
 
 //style
 import './thread-detail.styl'
@@ -68,6 +68,7 @@ class ThreadDetail extends Component {
 
 	addComment(){
 		addComment(this.props.params.id, this.state.form.text);
+		this.props.commentActions.getCommentList(this.props.params.id);
 		this.resetForm();
 		this.scrollComments();
 	}
@@ -140,7 +141,7 @@ class ThreadDetail extends Component {
 	}
 
 	render(){
-		let { title, desc, createdAt, createdBy, updatedAt } = this.state.thread;
+		let { title, desc, createdAt, createdBy, updatedAt, isDone } = this.state.thread;
 		const { TextArea }  = Input;
 
 		return(
@@ -152,7 +153,7 @@ class ThreadDetail extends Component {
 					<header>
 						<div>
 							<p className="meta-info">
-								Created by <span className="meta-info__user">{ createdBy }</span> at <span className="meta-date">{ calculateDiffTime(createdAt) }</span>
+								Created by <span className="meta-info__user">{ createdBy }</span> at <span className="meta-info__date">{ calculateDiffTime(createdAt) }</span>
 							</p>
 							<p className="meta-info">
 								Updated at <span className="meta-info__date">{ calculateDiffTime(createdAt) }</span>
@@ -220,14 +221,20 @@ class ThreadDetail extends Component {
 									}
 								</div>
 							</div>
-							<div className="detail-comment__form">
-								<Form onSubmit={() => this.addComment()}>
-									<Form.Item>
-										<TextArea rows={4} onChange={(e) => this.handleChange(e, 'text')} value={this.state.form.text} onBlur={() => this.stoppedTyping(this.props.params.id)}/>
-									</Form.Item>
-									<Button type="primary" htmltype="submit" icon="message" onClick={() => this.addComment()}>Comment</Button>
-								</Form>
-							</div>
+							{
+								isDone ?
+								<Divider>Creator has closed this thread</Divider>
+								:
+								<div className="detail-comment__form">
+									<Form onSubmit={() => this.addComment()}>
+										<Form.Item>
+											<TextArea rows={4} onChange={(e) => this.handleChange(e, 'text')} value={this.state.form.text} onBlur={() => this.stoppedTyping(this.props.params.id)}/>
+										</Form.Item>
+										<Button type="primary" htmltype="submit" icon="message" onClick={() => this.addComment()}>Comment</Button>
+									</Form>
+								</div>
+							}
+							
 						</div>
 					</footer>
 				</content>

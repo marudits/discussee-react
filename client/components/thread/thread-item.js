@@ -41,11 +41,14 @@ class ThreadItem extends Component {
 	}
 
 	toggleStatus(){
-		this.props.threadActions.setThreadStatus(this.thread.key, !this.thread.isDone);
+		if(this.isOwnThread()){
+			this.props.threadActions.setThreadStatus(this.thread.key, !this.thread.isDone);
+		}
 	}
 
 	getThreadActions(){
-		return [
+		return this.isOwnThread() ? 
+		[
 			<span onClick={() => this.handleThreadActions('COMMENT')}>
 				<Icon type="message" />
 				&nbsp;{this.comment.count}
@@ -53,6 +56,25 @@ class ThreadItem extends Component {
 			<Icon type="edit" onClick={() => this.handleThreadActions('EDIT')} />,
 			<Icon type="delete" onClick={() => this.handleThreadActions('DELETE')} />
 		]
+
+		:
+
+		[
+			<span onClick={() => this.handleThreadActions('COMMENT')}>
+				<Icon type="message" />
+				&nbsp;{this.comment.count}
+			</span>
+		]
+	}
+
+	isOwnThread(){
+		if(this.props.user){
+			const CURRENT_USER = this.props.user.username;
+			return CURRENT_USER === this.thread.createdBy
+		} else {
+			return false
+		}
+		
 	}
 
 	handleThreadActions(type){
