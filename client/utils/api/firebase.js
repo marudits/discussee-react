@@ -117,6 +117,17 @@ export function signIn(email, password){
 	})
 }
 
+export function signUp(email, password){
+	return new Promise((resolve, reject) => {
+		firebase.auth().createUserWithEmailAndPassword(email, password)
+			.then((user) => {
+				resolve({ status: true, data: user });
+			}, (err) => {
+				reject({ status: false, data: err });
+			})	
+	})
+}
+
 export function signOut(){
 	return new Promise((resolve, reject) => {
 		firebase.auth().signOut()
