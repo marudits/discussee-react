@@ -7,7 +7,7 @@ import { Form, Icon, Input, Button } from 'antd';
 import './auth.styl'
 
 //utils
-import { signIn } from '../../utils/api/firebase';
+import { signIn, signUp } from '../../utils/api/firebase';
 
 class Auth extends Component {
 	constructor(props){
@@ -32,17 +32,35 @@ class Auth extends Component {
 		this.resetValidation();
 		e.preventDefault();
 		let { email, password } = this.state.form;
-		signIn(email, password)
-			.then(res => {
-				this.props.userActions.setUserData(res.data);
-				this.props.router.push('/');
-			})
-			.catch(err => {
-				let newValidation = this.state.validation;
-				newValidation.submit.error = true;
-				newValidation.submit.message = err.message || err.data.message;
-				this.setState({validation: newValidation})
-			})
+		switch(this.state.mode){
+			case 'SIGN_IN':
+				signIn(email, password)
+					.then(res => {
+						this.props.userActions.setUserData(res.data);
+						this.props.router.push('/');
+					})
+					.catch(err => {
+						let newValidation = this.state.validation;
+						newValidation.submit.error = true;
+						newValidation.submit.message = err.message || err.data.message;
+						this.setState({validation: newValidation})
+					})
+				break;
+			case 'SIGN_UP':
+				signUp(email, password)
+					.then(res => {
+						this.props.userActions.setUserData(res.data);
+						this.props.router.push('/');
+					})
+					.catch(err => {
+						let newValidation = this.state.validation;
+						newValidation.submit.error = true;
+						newValidation.submit.message = err.message || err.data.message;
+						this.setState({validation: newValidation})
+					})
+				break;
+		}
+		
 	}
 
 	handleChange(e, field){
@@ -72,7 +90,7 @@ class Auth extends Component {
 					<h2>Welcome</h2>
 					<p>
 						{
-							this.state.mode === 'SIGN_IN' ?
+							this.state.mode !== 'SIGN_IN' ?
 								'Create account and enjoy the app'
 								:
 								'Please sign in to continue'
@@ -101,7 +119,14 @@ class Auth extends Component {
 								required
 								/>
 						</Form.Item>
-						<Button type="primary" htmlType="submit">Sign In</Button>
+						{
+							this.state.mode === 'SIGN_IN'
+							?
+							<Button type="primary" htmlType="submit" className="btn-signin">Sign In</Button>
+							:
+							<Button type="primary" htmlType="submit" className="btn-signup">Sign Up</Button>	
+						}
+						
 						{
 							this.state.validation.submit.error ?
 								<div className="message-error">{this.state.validation.submit.message}</div>
@@ -115,7 +140,7 @@ class Auth extends Component {
 						this.state.mode === 'SIGN_IN' ? 
 							<p>Don't have account? <span className="auth-footer__mode" onClick={() => this.toggleMode()}>Sign Up</span> now</p>
 							:
-							<p>Already have account? <span className="auth-footer__mode" onClick={() => this.toggleMode()}>Sign In now</span></p>
+							<p>Already have account? <span className="auth-footer__mode" onClick={() => this.toggleMode()}>Sign In</span> now</p>
 					}
 				</footer>
 			</section>
